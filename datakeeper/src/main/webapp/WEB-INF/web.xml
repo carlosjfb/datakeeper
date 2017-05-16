@@ -4,10 +4,10 @@
 	version="3.1">
 
 	<display-name>Servlet 3.0 Web Application</display-name>
-	<display-name>mypersonalinfo</display-name>
+	<display-name>datakeeper</display-name>
 
 	<welcome-file-list>
-		<welcome-file>files/pages/iniView.jsf</welcome-file>
+		<welcome-file>files/pages/inicio.jsf</welcome-file>
 	</welcome-file-list>
 
 	<context-param>
@@ -16,7 +16,7 @@
 	</context-param>
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>redmond</param-value>
+		<param-value>black-tie</param-value>
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.CONFIG_FILES</param-name>

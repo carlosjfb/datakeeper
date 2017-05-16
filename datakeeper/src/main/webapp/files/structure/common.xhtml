@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script type="text/javascript">
+		function validateForm(xhr, status, args, pfid) {
+	    	if(args.validationFailed) {
+		    	PF(pfid).show();
+	        }
+	        else {
+	            PF(pfid).hide();
+	        }
+	    }
+		function validateSelection(widgetVartable, idDialog){
+			if(widgetVartable.selection!=0 &amp;&amp; widgetVartable.selection!='null'){
+				PF(idDialog).show();
+			}else{
+				PF(idDialog).hide();
+			}
+		}	   
+
+		PrimeFaces.locales['es'] = {
+		        closeText: 'Cerrar',
+		        prevText: 'Anterior',
+		        nextText: 'Siguiente',
+		        monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+		        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+		        dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+		        dayNamesMin: ['D','L','M','X','J','V','S'],
+		        weekHeader: 'Semana',
+		        firstDay: 1,
+		        isRTL: false,
+		        showMonthAfterYear: false,
+		        yearSuffix: '',
+		        timeOnlyTitle: 'Sólo hora',
+		        timeText: 'Tiempo',
+		        hourText: 'Hora',
+		        minuteText: 'Minuto',
+		        secondText: 'Segundo',
+		        currentText: 'Fecha actual',
+		        ampm: false,
+		        month: 'Mes',
+		        week: 'Semana',
+		        day: 'Día',
+		        allDayText : 'Todo el día'
+		};
+	</script>
+	<style type="text/css">
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 95% !important;
+}
+</style>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="165" resizable="true"
+			closable="false" collapsible="true">
+			<ui:insert name="header">
+				<ui:include src="header.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="260" resizable="true"
+			closable="false" collapsible="true">
+			<ui:insert name="menu">
+				<ui:include src="menu.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="80" resizable="true"
+			closable="false" collapsible="true">
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<ui:insert name="content">
+				<ui:include src="contents.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
