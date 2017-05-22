@@ -45,6 +45,7 @@ public class CataController extends GenericController implements Serializable {
 	private CataFacade facade;
 
 	private List<CataDTO> itemsList;
+
 	private CataDTO currentItem;
 
 	@PostConstruct
