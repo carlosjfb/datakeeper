@@ -1,3 +1,6 @@
+/**
+ * CJFB 2017 - All rights reserved
+ */
 package com.datakeeper.controller;
 
 import java.text.MessageFormat;
@@ -8,6 +11,15 @@ import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
+
+/**
+ * CONTROLLER GENERICO
+ * 
+ * @author cjflores
+ * @version 1.0.0
+ * @since 1.0
+ *
+ */
 
 public class GenericController {
 

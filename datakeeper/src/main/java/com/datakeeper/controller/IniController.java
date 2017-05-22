@@ -1,3 +1,6 @@
+/**
+ * CJFB 2017 - All rights reserved
+ */
 package com.datakeeper.controller;
 
 import java.io.Serializable;
@@ -12,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Controller de inicio
+ * CONTROLLER DE INICIO
  * 
  * @author cjflores
  * @version 1.0.0
