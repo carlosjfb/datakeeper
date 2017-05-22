@@ -11,7 +11,7 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 /**
- * GENERIC ASSEMBLER
+ * ASSEMBLER GENERICO
  * 
  * @author cjflores
  * @version 1.0.0

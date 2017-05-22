@@ -1,9 +1,23 @@
+/**
+ * CJFB 2017 - All rights reserved
+ */
 package com.datakeeper.service.assembler;
+
+import org.springframework.stereotype.Component;
 
 import com.datakeeper.dto.CataDTO;
 import com.datakeeper.entities.Cata;
 import com.datakeeper.utils.VarConstant;
 
+/**
+ * ASSEMBLER CATA
+ * 
+ * @author cjflores
+ * @version 1.0.0
+ * @since 1.0
+ * 
+ */
+@Component
 public class CataAssembler extends GenericAssembler<Cata, CataDTO> {
 
 	@Override

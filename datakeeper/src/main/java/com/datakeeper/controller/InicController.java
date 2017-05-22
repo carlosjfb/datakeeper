@@ -23,11 +23,11 @@ import lombok.EqualsAndHashCode;
  */
 
 @Data
-@ManagedBean(name = "ini_controller", eager = true)
+@ManagedBean(name = "inicController", eager = true)
 @ViewScoped
 @EqualsAndHashCode(callSuper = false)
 @Component
-public class IniController extends GenericController implements Serializable {
+public class InicController extends GenericController implements Serializable {
 
 	/**
 	 * 

@@ -9,7 +9,7 @@ import com.datakeeper.dto.CataDTO;
 import com.datakeeper.entities.Cata;
 
 /**
- * IMPLEMENTACÓN SERVICE CATA
+ * INTERFACE SERVICE CATA
  * 
  * @author cjflores
  * @version 1.0.0

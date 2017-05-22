@@ -10,6 +10,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.datakeeper.entities.Cata;
 import com.datakeeper.persistence.dao.CataDAO;
@@ -22,6 +23,7 @@ import com.datakeeper.persistence.dao.CataDAO;
  * @since 1.0
  *
  */
+@Repository
 public class CataDAOImpl extends GenericDAOImpl<Cata, Integer> implements
 		CataDAO {
 

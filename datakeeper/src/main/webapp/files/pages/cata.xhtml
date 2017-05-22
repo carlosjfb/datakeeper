@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="../structure/common.xhtml">
+		<ui:define name="content">
+			<p:panel widgetVar="panelCataPrin" header="Catálogo principal"
+				style="margin-bottom:20px">
+				<p:growl id="growl" sticky="false" autoUpdate="true"
+					showDetail="true" />
+				<h:form id="form" prependId="false">
+
+
+					<p:dataTable id="tableCata" widgetVar="cata"
+						value="#{cataController.itemsList}" var="item"
+						selection="#{cataController.currentItem}" rowKey="#{item.idCata}"
+						sortBy="#{item.codi} #{item.nomb} #{item.valo}" rows="5"
+						paginator="true" rowsPerPageTemplate="5,10,15"
+						resizableColumns="false"
+						currentPageReportTemplate="{startRecord} de {endRecord}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						paginatorPosition="bottom" emptyMessage="No hay registros">
+						<p:ajax event="filter" ignoreAutoUpdate="true" />
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Código" sortBy="#{item.codi}"
+							filterBy="#{item.codi}" filterMatchMode="contains"
+							groupRow="true">
+							<h:outputText value="#{item.codi}" />
+						</p:column>
+						<p:column headerText="Nombre" sortBy="#{item.nomb}"
+							filterBy="#{item.nomb}" filterMatchMode="contains">
+							<h:outputText value="#{item.nomb}" />
+						</p:column>
+						<p:column headerText="Valor" sortBy="#{item.valo}"
+							filterBy="#{item.valo}" filterMatchMode="contains">
+							<h:outputText value="#{item.valo}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</p:panel>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -13,8 +13,12 @@
 				<p:tab title="Principal">
 					<h:panelGrid>
 						<p:link outcome="inicio" value="Inicio"
-							onclick="#{ini_controller.postConstruct}">
+							onclick="#{inicController.postConstruct}">
 							<f:param name="i" value="0" />
+						</p:link>
+						<p:link outcome="cata" value="Catalogo"
+							onclick="#{cataController.postConstruct}">
+							<f:param name="i" value="1" />
 						</p:link>
 					</h:panelGrid>
 				</p:tab>
