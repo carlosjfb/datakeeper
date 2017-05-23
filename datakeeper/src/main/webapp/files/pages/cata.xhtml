@@ -7,13 +7,20 @@
 <h:body>
 	<ui:composition template="../structure/common.xhtml">
 		<ui:define name="content">
-
 			<p:panel widgetVar="pnlCata" header="Catálogo principal"
 				style="margin-bottom:20px">
-
 				<p:growl id="growl" sticky="false" autoUpdate="true"
 					showDetail="true" />
-				<h:form id="frmCata" prependId="false">
+				<h:form id="formCata" prependId="false">
+
+					<p:commandButton value="Nuevo" icon="ui-icon-document"
+						action="#{cataController.onLoadNew}"
+						onclick="PF('dlgNuevo').show();"
+						update=":formNuevo:panelGrid_Nuevo" />
+					<p:commandButton value="Ver" icon="ui-icon-search"
+						onclick="validateSelection(PF('tblCata'),'dlgVer');"
+						action="#{cataController.onValidateSelectedRow}"
+						update=":formVer:panelGrid_Ver" />
 
 					<p:dataTable id="tblCata" widgetVar="tblCata"
 						value="#{cataController.itemsList}" var="item"
@@ -43,6 +50,79 @@
 					</p:dataTable>
 				</h:form>
 			</p:panel>
+
+			<p:dialog header="Nuevo" widgetVar="dlgNuevo" style="position:fixed;"
+				resizable="false" showEffect="clip" hideEffect="clip" modal="true"
+				closeOnEscape="true" closable="false" appendTo="@(body)">
+				<h:form id="formNuevo">
+					<p:outputPanel id="outputPanel_Nuevo">
+						<p:focus context=":formNuevo:outputPanel_Nuevo" />
+						<h:panelGrid id="panelGrid_Nuevo" columns="1">
+							<h:panelGrid columns="3">
+								<p:outputLabel value="Código" for="current_item_new_codi" />
+								<p:inputText id="current_item_new_codi"
+									value="#{cataController.input_new_codi}" maxlength="9"
+									style="text-transform:uppercase;" required="true"
+									requiredMessage="El campo 'Código' es requerido">
+									<p:ajax event="change" update="@this" />
+								</p:inputText>
+								<p:message for="current_item_new_codi" />
+								<p:outputLabel value="Nombre" for="current_item_new_nomb" />
+								<p:inputText id="current_item_new_nomb"
+									value="#{cataController.input_new_nomb}" maxlength="30"
+									style="width:320px; height:auto;" required="true"
+									requiredMessage="El campo 'Nombre' es requerido" />
+								<p:message for="current_item_new_nomb" />
+								<p:outputLabel value="Valor" for="current_item_new_valo" />
+								<p:inputTextarea id="current_item_new_valo"
+									value="#{cataController.input_new_valo}" maxlength="80"
+									rows="3" cols="35" autoResize="false" />
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Guardar" icon="ui-icon-check"
+									action="#{cataController.onSave}"
+									update=":formCata:tblCata :formNuevo:panelGrid_Nuevo"
+									validateClient="true" />
+								<p:commandButton value="Cancelar" icon="ui-icon-closethick"
+									action="#{cataController.onCancel}"
+									onclick="PF('dlgNuevo').hide();" immediate="true" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:form>
+			</p:dialog>
+
+			<p:dialog header="Ver" widgetVar="dlgVer" style="position:fixed;"
+				resizable="false" showEffect="clip" hideEffect="clip" modal="true"
+				closable="false" appendTo="@(body)">
+				<h:form id="formVer">
+					<p:outputPanel id="outputPanel_View">
+						<h:panelGrid id="panelGrid_Ver" columns="2">
+							<p:outputLabel value="Código" for="current_item_view_codi" />
+							<h:outputText id="current_item_view_codi"
+								value="#{cataController.currentItem.codi}"
+								style="font-weight:bold" />
+							<p:outputLabel value="Nombre" for="current_item_view_nom_cata" />
+							<h:outputText id="current_item_view_nom_cata"
+								value="#{cataController.currentItem.nomb}"
+								style="font-weight:bold" />
+							<p:outputLabel value="Valor" for="current_item_view_val" />
+							<p:inputTextarea id="current_item_view_val"
+								value="#{cataController.currentItem.valo}" rows="2" cols="35"
+								autoResize="false" style="font-weight:bold" readonly="true" />
+							<p:outputLabel value="Estatus" for="current_item_view_esta" />
+							<h:outputText id="current_item_view_esta"
+								value="#{cataController.currentItem.idEstaNomb}"
+								style="font-weight:bold" />
+						</h:panelGrid>
+						<h:panelGrid columns="1">
+							<p:commandButton value="Aceptar" icon="ui-icon-check"
+								onclick="PF('dlgVer').hide();" immediate="true" />
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:form>
+			</p:dialog>
+
 
 		</ui:define>
 	</ui:composition>

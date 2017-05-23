@@ -19,4 +19,6 @@ import com.datakeeper.entities.Cata;
  */
 public interface CataDAO extends GenericDAO<Cata, Integer> {
 	List<Cata> findAllByEsta(Integer idEsta) throws PersistenceException;
+
+	boolean findByOBject(Cata obj) throws PersistenceException;
 }

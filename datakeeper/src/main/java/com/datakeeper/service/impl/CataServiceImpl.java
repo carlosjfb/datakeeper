@@ -49,6 +49,17 @@ public class CataServiceImpl extends GenericServiceImpl<Cata, CataDTO, Integer>
 		return listDTO;
 	}
 
+	@Override
+	public boolean findByObject(CataDTO obj) throws ServiceException {
+		try {
+			return dao.findByOBject(assembler.getMappingTransform(obj));
+		} catch (PersistenceException ex) {
+			System.out
+					.println("Error en CataServiceImpl - findByObject: " + ex);
+			return false;
+		}
+	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	GenericDAO getDAO() {

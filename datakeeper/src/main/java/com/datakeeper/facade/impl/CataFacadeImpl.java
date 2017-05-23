@@ -42,6 +42,16 @@ public class CataFacadeImpl extends GenericFacadeImpl<Cata, CataDTO, Integer>
 		}
 	}
 
+	@Override
+	public boolean findByObject(CataDTO obj) throws Exception {
+		try {
+			return service.findByObject(obj);
+		} catch (Exception e) {
+			System.out.println("Error en CataFacadeImpl - findByObject: " + e);
+			return false;
+		}
+	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	GenericService getService() {

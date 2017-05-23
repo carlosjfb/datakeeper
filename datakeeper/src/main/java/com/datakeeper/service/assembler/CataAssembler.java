@@ -31,7 +31,7 @@ public class CataAssembler extends GenericAssembler<Cata, CataDTO> {
 		dto.setNomb(mapping.getNomb());
 		dto.setValo(mapping.getValo());
 		dto.setIdEsta(mapping.getIdCata());
-		dto.setIdEstaNomb((mapping.getIdCata().equals(
+		dto.setIdEstaNomb((mapping.getIdEsta().equals(
 				VarConstant.CATA_ID_CATA_ACTIVO) ? VarConstant.CATA_NOMB_CATA_ACTIVO
 				: VarConstant.CATA_NOMB_CATA_INACTIVO));
 		dto.setFchCrea(mapping.getFchCrea());
@@ -48,7 +48,9 @@ public class CataAssembler extends GenericAssembler<Cata, CataDTO> {
 		mapping.setIdCata(dto.getIdCata());
 		mapping.setCodi(dto.getCodi());
 		mapping.setNomb(dto.getNomb());
-		mapping.setValo(dto.getValo());
+		if (dto.getValo() != "") {
+			mapping.setValo(dto.getValo());
+		}
 		mapping.setIdEsta(dto.getIdEsta());
 		mapping.setFchCrea(dto.getFchCrea());
 		mapping.setFchModi(dto.getFchModi());

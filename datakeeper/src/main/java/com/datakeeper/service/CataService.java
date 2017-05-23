@@ -18,4 +18,6 @@ import com.datakeeper.entities.Cata;
  */
 public interface CataService extends GenericService<Cata, CataDTO, Integer> {
 	List<CataDTO> findAllByEsta(Integer idEsta) throws ServiceException;
+
+	boolean findByObject(CataDTO obj) throws ServiceException;
 }
