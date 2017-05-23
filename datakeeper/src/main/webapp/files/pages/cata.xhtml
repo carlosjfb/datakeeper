@@ -7,14 +7,15 @@
 <h:body>
 	<ui:composition template="../structure/common.xhtml">
 		<ui:define name="content">
-			<p:panel widgetVar="panelCataPrin" header="Catálogo principal"
+
+			<p:panel widgetVar="pnlCata" header="Catálogo principal"
 				style="margin-bottom:20px">
+
 				<p:growl id="growl" sticky="false" autoUpdate="true"
 					showDetail="true" />
-				<h:form id="form" prependId="false">
+				<h:form id="frmCata" prependId="false">
 
-
-					<p:dataTable id="tableCata" widgetVar="cata"
+					<p:dataTable id="tblCata" widgetVar="tblCata"
 						value="#{cataController.itemsList}" var="item"
 						selection="#{cataController.currentItem}" rowKey="#{item.idCata}"
 						sortBy="#{item.codi} #{item.nomb} #{item.valo}" rows="5"

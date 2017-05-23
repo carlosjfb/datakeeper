@@ -8,7 +8,6 @@
 	<ui:composition>
 		<h:form id="menu">
 			<p:growl autoUpdate="true" />
-
 			<p:accordionPanel activeIndex="#{param.i}">
 				<p:tab title="Principal">
 					<h:panelGrid>
@@ -16,13 +15,16 @@
 							onclick="#{inicController.postConstruct()}">
 							<f:param name="i" value="0" />
 						</p:link>
-						<p:link outcome="cata" value="Catalogo"
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Catálogos">
+					<h:panelGrid>
+						<p:link outcome="cata" value="Catálogo principal"
 							onclick="#{cataController.postConstruct()}">
 							<f:param name="i" value="1" />
 						</p:link>
 					</h:panelGrid>
 				</p:tab>
-
 			</p:accordionPanel>
 		</h:form>
 	</ui:composition>
