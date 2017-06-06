@@ -53,6 +53,8 @@ public class CataController extends GenericController implements Serializable {
 	private String input_new_codi;
 	private String input_new_nomb;
 	private String input_new_valo;
+	private String input_edit_nomb;
+	private String input_edit_valo;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -65,6 +67,8 @@ public class CataController extends GenericController implements Serializable {
 		input_new_codi = null;
 		input_new_nomb = null;
 		input_new_valo = null;
+		input_edit_nomb = null;
+		input_edit_valo = null;
 	}
 
 	private void initList() {
@@ -124,13 +128,13 @@ public class CataController extends GenericController implements Serializable {
 	}
 
 	private boolean validExist(CataDTO dto) {
-		boolean r = false;
+		boolean result = false;
 		try {
-			r = facade.findByObject(dto);
+			result = facade.checkIfObjectExist(dto);
 		} catch (Exception e) {
 			System.out.println("Error en CataController - validExist " + e);
 		}
-		return r;
+		return result;
 	}
 
 	public void onCancel() {
@@ -143,4 +147,65 @@ public class CataController extends GenericController implements Serializable {
 			super.addWarningMessage(MsgConstant.MSG_NOT_SELECTED);
 		}
 	}
+
+	public void onAssignUpdate() {
+		if (currentItem != null) {
+			input_edit_nomb = currentItem.getNomb();
+			input_edit_valo = currentItem.getValo();
+		} else {
+			super.addWarningMessage(MsgConstant.MSG_NOT_SELECTED);
+		}
+	}
+
+	public void onUpdate() {
+		boolean changes = false;
+		if (!currentItem.getNomb().equals(input_edit_nomb)) {
+			currentItem.setNomb(input_edit_nomb);
+			changes = true;
+		}
+		if (currentItem.getValo() == null) {
+			currentItem.setValo(input_edit_valo);
+			changes = true;
+		} else {
+			if (!currentItem.getValo().equals(input_edit_valo)) {
+				currentItem.setValo(input_edit_valo);
+				changes = true;
+			}
+		}
+		if (changes) {
+			if (!validExist(currentItem)) {
+				try {
+					currentItem.setFchModi(now());
+					facade.update(currentItem);
+					super.addInfoMessage(MsgConstant.MSG_UPDATE_SUCCESS);
+					RequestContext.getCurrentInstance().execute(
+							"PF('dlgEditar').hide();");
+				} catch (Exception e) {
+					super.addErrorMessage(MsgConstant.MSG_UPDATE_FAIL);
+				}
+				refreshAll();
+			} else {
+				super.addWarningMessage(MsgConstant.MSG_RECORD_EXIST);
+				RequestContext.getCurrentInstance().execute(
+						"PF('dlgEditar').show();");
+			}
+		} else {
+			super.addWarningMessage(MsgConstant.MSG_CHANGE_NONE);
+			RequestContext.getCurrentInstance().execute(
+					"PF('dlgEditar').hide();");
+		}
+	}
+
+	public void onTemporalilyRemove() {
+		try {
+			currentItem.setIdEsta(VarConstant.CATA_ID_CATA_INACTIVO);
+			currentItem.setFchModi(now());
+			facade.update(currentItem);
+			super.addInfoMessage(MsgConstant.MSG_DELETED_SUCESS);
+		} catch (Exception e) {
+			super.addErrorMessage(MsgConstant.MSG_DELETED_FAIL);
+		}
+		refreshAll();
+	}
+
 }

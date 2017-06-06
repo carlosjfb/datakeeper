@@ -50,13 +50,48 @@ public class CataServiceImpl extends GenericServiceImpl<Cata, CataDTO, Integer>
 	}
 
 	@Override
-	public boolean findByObject(CataDTO obj) throws ServiceException {
+	public boolean checkIfObjectExist(CataDTO dto) throws ServiceException {
 		try {
-			return dao.findByOBject(assembler.getMappingTransform(obj));
+			return dao.checkIfObjectExist(assembler.getMappingTransform(dto));
 		} catch (PersistenceException ex) {
 			System.out
-					.println("Error en CataServiceImpl - findByObject: " + ex);
+					.println("Error en CataServiceImpl - checkIfObjectExist: "
+							+ ex);
 			return false;
+		}
+	}
+
+	@Override
+	public CataDTO getObjectCata(CataDTO dto) throws ServiceException {
+		try {
+			Cata entitie = dao
+					.getObjectCata(assembler.getMappingTransform(dto));
+			return assembler.getDTOTransform(entitie);
+		} catch (PersistenceException ex) {
+			System.out.println("Error en CataServiceImpl - getObjectCata: "
+					+ ex);
+			return null;
+		}
+	}
+
+	@Override
+	public List<CataDTO> findByCodi(String codi) throws ServiceException {
+		try {
+			List<Cata> listEntitie = dao.findByCodi(codi);
+			return assembler.getDTOListTransform(listEntitie);
+		} catch (PersistenceException ex) {
+			System.out.println("Error en CataServiceImpl - findByCodi: " + ex);
+			return null;
+		}
+	}
+
+	@Override
+	public Integer counRecords() throws ServiceException {
+		try {
+			return dao.counRecords();
+		} catch (PersistenceException ex) {
+			System.out.println("Error en CataServiceImpl - counRecords: " + ex);
+			return null;
 		}
 	}
 

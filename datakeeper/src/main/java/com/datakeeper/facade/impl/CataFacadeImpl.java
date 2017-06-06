@@ -43,12 +43,43 @@ public class CataFacadeImpl extends GenericFacadeImpl<Cata, CataDTO, Integer>
 	}
 
 	@Override
-	public boolean findByObject(CataDTO obj) throws Exception {
+	public boolean checkIfObjectExist(CataDTO dto) throws Exception {
 		try {
-			return service.findByObject(obj);
+			return service.checkIfObjectExist(dto);
 		} catch (Exception e) {
-			System.out.println("Error en CataFacadeImpl - findByObject: " + e);
+			System.out.println("Error en CataFacadeImpl - checkIfObjectExist: "
+					+ e);
 			return false;
+		}
+	}
+
+	@Override
+	public CataDTO getObjectCata(CataDTO dto) throws Exception {
+		try {
+			return service.getObjectCata(dto);
+		} catch (Exception e) {
+			System.out.println("Error en CataFacadeImpl - getObjectCata: " + e);
+			return null;
+		}
+	}
+
+	@Override
+	public List<CataDTO> getObjectCata(String codi) throws Exception {
+		try {
+			return service.findByCodi(codi);
+		} catch (Exception e) {
+			System.out.println("Error en CataFacadeImpl - getObjectCata: " + e);
+			return null;
+		}
+	}
+
+	@Override
+	public Integer counRecords() throws Exception {
+		try {
+			return service.counRecords();
+		} catch (Exception e) {
+			System.out.println("Error en CataFacadeImpl - counRecords: " + e);
+			return null;
 		}
 	}
 

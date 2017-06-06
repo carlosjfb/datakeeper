@@ -4,7 +4,9 @@
 package com.datakeeper.service;
 
 import java.util.List;
+
 import org.hibernate.service.spi.ServiceException;
+
 import com.datakeeper.dto.CataDTO;
 import com.datakeeper.entities.Cata;
 
@@ -19,5 +21,11 @@ import com.datakeeper.entities.Cata;
 public interface CataService extends GenericService<Cata, CataDTO, Integer> {
 	List<CataDTO> findAllByEsta(Integer idEsta) throws ServiceException;
 
-	boolean findByObject(CataDTO obj) throws ServiceException;
+	boolean checkIfObjectExist(CataDTO obj) throws ServiceException;
+
+	CataDTO getObjectCata(CataDTO obj) throws ServiceException;
+
+	List<CataDTO> findByCodi(String codi) throws ServiceException;
+
+	Integer counRecords() throws ServiceException;
 }

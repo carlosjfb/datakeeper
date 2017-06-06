@@ -19,5 +19,11 @@ import com.datakeeper.entities.Cata;
 public interface CataFacade extends GenericFacade<Cata, CataDTO, Integer> {
 	List<CataDTO> findByIdEsta(Integer idEsta) throws Exception;
 
-	boolean findByObject(CataDTO obj) throws Exception;
+	boolean checkIfObjectExist(CataDTO dto) throws Exception;
+
+	CataDTO getObjectCata(CataDTO dto) throws Exception;
+
+	List<CataDTO> getObjectCata(String codi) throws Exception;
+
+	Integer counRecords() throws Exception;
 }
