@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="../structure/common.xhtml">
+		<ui:define name="content">
+			<p:panel widgetVar="pnlArch" header="#{msg.lbl_titulo_arch}"
+				style="margin-bottom:20px">
+				<p:growl id="growl" sticky="false" autoUpdate="true"
+					showDetail="true" />
+				<h:form id="formArch" prependId="false">
+
+					<p:commandButton value="#{msg.lbl_carg}"
+						icon="ui-icon-folder-collapsed" onclick="PF('dlgCarga').show();"
+						update=":formCarga:panelGrid_Carga" />
+
+					<!-- 					<p:commandButton value="#{msg.lbl_ver}" icon="ui-icon-search" -->
+					<!-- 						onclick="validateSelection(PF('arch'),'dlgVer');" -->
+					<!-- 						action="#{archController.onValidateSelectedRow}" -->
+					<!-- 						actionListener="#{archController.onViewArch}" -->
+					<!-- 						update=":formVer:panelGrid_Ver" /> -->
+
+					<p:dataTable id="tblArch" widgetVar="tblArch"
+						value="#{archController.itemsList}" var="item"
+						selection="#{archController.currentItem}" rowKey="#{item.idArch}"
+						sortBy="#{item.nomb} #{item.descArch}" rows="5" paginator="true"
+						rowsPerPageTemplate="5,10,15" resizableColumns="false"
+						currentPageReportTemplate="{startRecord} de {endRecord}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						paginatorPosition="bottom" emptyMessage="#{msg.lbl_no_regi}">
+						<p:ajax event="filter" ignoreAutoUpdate="true" />
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+						<p:column headerText="#{msg.lbl_nombre}" sortBy="#{item.nomb}"
+							filterBy="#{item.nomb}" filterMatchMode="contains">
+							<h:outputText value="#{item.nomb}" />
+						</p:column>
+						<p:column headerText="#{msg.lbl_tipo}" sortBy="#{item.idTipoNomb}"
+							filterBy="#{item.idTipoNomb}" filterMatchMode="contains">
+							<h:outputText value="#{item.idTipoNomb}" />
+						</p:column>
+						<p:column headerText="#{msg.lbl_desc}" sortBy="#{item.descArch}"
+							filterBy="#{item.descArch}" filterMatchMode="contains">
+							<h:outputText value="#{item.descArch}" />
+						</p:column>
+						<p:column headerText="#{msg.lbl_vers}" sortBy="#{item.vers}"
+							filterBy="#{item.vers}" filterMatchMode="contains">
+							<h:outputText value="#{item.vers}" />
+						</p:column>
+						<p:column headerText="#{msg.lbl_tama}" sortBy="#{item.tama}"
+							filterBy="#{item.tama}" filterMatchMode="contains">
+							<h:outputText value="#{item.tama}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</p:panel>
+
+			<p:dialog header="#{msg.lbl_carg}" widgetVar="dlgCarga"
+				style="position:fixed;" resizable="false" showEffect="clip"
+				hideEffect="clip" modal="true" closeOnEscape="true" closable="false"
+				appendTo="@(body)">
+				<h:form id="formCarga">
+					<p:outputPanel id="outputPanel_Nuevo">
+						<p:focus context=":formCarga:outputPanel_Nuevo" />
+						<h:panelGrid id="panelGrid_Carga" columns="1">
+							<h:panelGrid columns="1">
+								<p:fileUpload fileUploadListener="#{archController.onLoadFiles}"
+									label="#{msg.lbl_exam}" uploadLabel="#{msg.lbl_carg}"
+									cancelLabel="#{msg.lbl_canc}" mode="advanced"
+									dragDropSupport="false" multiple="true"
+									update="@this current_item_view_nom_ext" fileLimit="5"
+									fileLimitMessage="#{msg.lbl_maxi_arch}" />
+								<h:outputText />
+								<p:outputLabel value="#{msg.lbl_exte_regi}"
+									for="current_item_view_nom_ext" />
+								<p:inputTextarea id="current_item_view_nom_ext"
+									value="#{archController.view_extension_fail}" rows="4"
+									cols="35" autoResize="true" style="font-weight:bold;color:red"
+									readonly="true" />
+								<p:separator />
+								<p:commandButton value="#{msg.lbl_acep}" icon="ui-icon-check"
+									action="#{archController.onSaveLoad}"
+									update=":formArch:tblArch :formCarga:panelGrid_Carga"
+									onclick="PF('dlgCarga').hide();" immediate="true" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:form>
+			</p:dialog>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

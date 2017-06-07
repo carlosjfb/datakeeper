@@ -56,7 +56,7 @@ public class Arch implements Serializable {
 	@Column(name = "desc_arch")
 	private String descArch;
 	@Column(name = "tama")
-	private double tama;
+	private String tama;
 	@Column(name = "vers")
 	private String vers;
 	@Column(name = "arch_byte")

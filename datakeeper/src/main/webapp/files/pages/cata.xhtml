@@ -13,7 +13,7 @@
 					showDetail="true" />
 				<h:form id="formCata" prependId="false">
 
-					<p:commandButton value="#{msg.lbl_nuevo}" icon="ui-icon-document"
+					<p:commandButton value="#{msg.lbl_nuev}" icon="ui-icon-document"
 						action="#{cataController.onLoadNew}"
 						onclick="PF('dlgNuevo').show();"
 						update=":formNuevo:panelGrid_Nuevo" />
@@ -21,15 +21,14 @@
 						onclick="validateSelection(PF('tblCata'),'dlgVer');"
 						action="#{cataController.onValidateSelectedRow}"
 						update=":formVer:panelGrid_Ver" />
-					<p:commandButton value="#{msg.lbl_editar}" icon="ui-icon-pencil"
+					<p:commandButton value="#{msg.lbl_edit}" icon="ui-icon-pencil"
 						onclick="validateSelection(PF('tblCata'),'dlgEditar');"
 						action="#{cataController.onAssignUpdate}"
 						update=":formEditar:panelGrid_Editar" />
-					<p:commandButton value="#{msg.lbl_eliminar}" icon="ui-icon-trash"
+					<p:commandButton value="#{msg.lbl_elim}" icon="ui-icon-trash"
 						onclick="validateSelection(PF('tblCata'),'dlgEliminar');"
 						action="#{cataController.onValidateSelectedRow}"
 						update=":formEliminar" />
-
 					<p:dataTable id="tblCata" widgetVar="tblCata"
 						value="#{cataController.itemsList}" var="item"
 						selection="#{cataController.currentItem}" rowKey="#{item.idCata}"
@@ -37,7 +36,7 @@
 						rowsPerPageTemplate="5,10,15" resizableColumns="false"
 						currentPageReportTemplate="{startRecord} de {endRecord}"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						paginatorPosition="bottom" emptyMessage="No hay registros">
+						paginatorPosition="bottom" emptyMessage="#{msg.lbl_no_regi}">
 						<p:ajax event="filter" ignoreAutoUpdate="true" />
 						<p:column selectionMode="single"
 							style="width:16px;text-align:center" />
@@ -57,7 +56,7 @@
 				</h:form>
 			</p:panel>
 
-			<p:dialog header="#{msg.lbl_nuevo}" widgetVar="dlgNuevo"
+			<p:dialog header="#{msg.lbl_nuev}" widgetVar="dlgNuevo"
 				style="position:fixed;" resizable="false" showEffect="clip"
 				hideEffect="clip" modal="true" closeOnEscape="true" closable="false"
 				appendTo="@(body)">
@@ -89,11 +88,11 @@
 									rows="3" cols="35" autoResize="false" />
 							</h:panelGrid>
 							<h:panelGrid columns="2">
-								<p:commandButton value="#{msg.lbl_guardar}" icon="ui-icon-check"
+								<p:commandButton value="#{msg.lbl_guar}" icon="ui-icon-check"
 									action="#{cataController.onSave}"
 									update=":formCata:tblCata :formNuevo:panelGrid_Nuevo"
 									validateClient="true" />
-								<p:commandButton value="#{msg.lbl_cancelar}"
+								<p:commandButton value="#{msg.lbl_canc}"
 									icon="ui-icon-closethick" action="#{cataController.onCancel}"
 									onclick="PF('dlgNuevo').hide();" immediate="true" />
 							</h:panelGrid>
@@ -129,14 +128,14 @@
 								style="font-weight:bold" />
 						</h:panelGrid>
 						<h:panelGrid columns="1">
-							<p:commandButton value="#{msg.lbl_aceptar}" icon="ui-icon-check"
+							<p:commandButton value="#{msg.lbl_acep}" icon="ui-icon-check"
 								onclick="PF('dlgVer').hide();" immediate="true" />
 						</h:panelGrid>
 					</p:outputPanel>
 				</h:form>
 			</p:dialog>
 
-			<p:dialog header="#{msg.lbl_editar}" widgetVar="dlgEditar"
+			<p:dialog header="#{msg.lbl_edit}" widgetVar="dlgEditar"
 				style="position:fixed;" resizable="false" showEffect="clip"
 				hideEffect="clip" modal="true" closable="false" appendTo="@(body)">
 				<h:form id="formEditar">
@@ -165,11 +164,11 @@
 								<p:message for="current_item_edit_val" />
 							</h:panelGrid>
 							<h:panelGrid columns="2">
-								<p:commandButton value="#{msg.lbl_guardar}" icon="ui-icon-check"
+								<p:commandButton value="#{msg.lbl_guar}" icon="ui-icon-check"
 									action="#{cataController.onUpdate}"
 									update=":formCata:tblCata :formEditar:panelGrid_Editar"
 									validateClient="true" />
-								<p:commandButton value="#{msg.lbl_cancelar}"
+								<p:commandButton value="#{msg.lbl_canc}"
 									icon="ui-icon-closethick" action="#{cataController.onCancel}"
 									onclick="PF('dlgEditar').hide();" immediate="true" />
 							</h:panelGrid>
@@ -178,18 +177,17 @@
 				</h:form>
 			</p:dialog>
 
-			<p:confirmDialog header="#{msg.lbl_eliminar}"
-				message="#{msg.lbl_msg_eliminar}" showEffect="clip"
-				hideEffect="clip" widgetVar="dlgEliminar" closable="false"
-				appendTo="@(body)">
+			<p:confirmDialog header="#{msg.lbl_elim}"
+				message="#{msg.lbl_msg_elim}" showEffect="clip" hideEffect="clip"
+				widgetVar="dlgEliminar" closable="false" appendTo="@(body)">
 				<h:form id="formEliminar">
-					<p:commandButton value="#{msg.lbl_aceptar}" icon="ui-icon-check"
+					<p:commandButton value="#{msg.lbl_acep}" icon="ui-icon-check"
 						action="#{cataController.onTemporalilyRemove}"
 						oncomplete="PF('dlgEliminar').hide();"
 						styleClass="ui-confirmdialog-yes" update=":formCata:tblCata"
 						validateClient="true" />
-					<p:commandButton value="#{msg.lbl_cancelar}"
-						icon="ui-icon-closethick" action="#{cataController.onCancel}"
+					<p:commandButton value="#{msg.lbl_canc}" icon="ui-icon-closethick"
+						action="#{cataController.onCancel}"
 						onclick="PF('dlgEliminar').hide();" immediate="true" />
 				</h:form>
 			</p:confirmDialog>

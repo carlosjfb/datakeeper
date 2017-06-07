@@ -16,4 +16,5 @@ public class VarConstant {
 	public static final Integer CATA_ID_CATA_INACTIVO = 2;
 	public static final String CATA_NOMB_CATA_ACTIVO = "ACTIVO";
 	public static final String CATA_NOMB_CATA_INACTIVO = "INACTIVO";
+	public static final String CATA_COD_MIME_TYPE = "MIME_TYPE";
 }

@@ -27,12 +27,12 @@ public class ArchDTO implements Serializable {
 	private Integer idArch;
 	private String nomb;
 	private String descArch;
-	private double tama;
+	private String tama;
 	private String vers;
 	private byte[] archByte;
 	private Integer idTipo;
 	private String idTipoNomb;
-	private String odTipoValo;
+	private String idTipoValo;
 	private Integer idEsta;
 	private String idEstaNomb;
 	private Date fchCrea;

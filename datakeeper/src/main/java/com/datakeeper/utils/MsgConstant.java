@@ -22,4 +22,6 @@ public class MsgConstant {
 	public static final String MSG_UPDATE_FAIL = "msg_update_fail";
 	public static final String MSG_DELETED_SUCESS = "msg_deleted_sucess";
 	public static final String MSG_DELETED_FAIL = "msg_deleted_fail";
+	public static final String MSG_FILE_LOAD = "msg_file_load";
+	public static final String MSG_FILE_LOAD_FAIL = "msg_file_load_fail";
 }

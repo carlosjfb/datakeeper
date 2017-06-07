@@ -25,6 +25,15 @@
 						</p:link>
 					</h:panelGrid>
 				</p:tab>
+				<p:tab title="Archivos">
+					<h:panelGrid>
+						<p:link outcome="arch" value="Archivos"
+							onclick="#{archController.postConstruct()}">
+							<f:param name="i" value="2" />
+						</p:link>
+					</h:panelGrid>
+				</p:tab>
+				
 			</p:accordionPanel>
 		</h:form>
 	</ui:composition>
