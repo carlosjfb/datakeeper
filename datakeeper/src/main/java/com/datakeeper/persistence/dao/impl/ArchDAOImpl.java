@@ -60,4 +60,25 @@ public class ArchDAOImpl extends GenericDAOImpl<Arch, Integer> implements
 		}
 		return count;
 	}
+
+	@Override
+	public boolean checkIfExistName(String nomb) throws PersistenceException {
+		try {
+			Criteria criteria = getSessionFactory().getCurrentSession()
+					.createCriteria(Arch.class);
+			criteria.add(Restrictions.eq("nomb", nomb));
+			criteria.add(Restrictions.eq("idEsta.idCata",
+					VarConstant.CATA_ID_CATA_ACTIVO));
+			Arch tmp = (Arch) criteria.uniqueResult();
+			if (tmp != null) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			throw new PersistenceException(
+					"Error en ArchDAOImpl - checkIfExistName:" + e.getMessage(),
+					e);
+		}
+	}
 }

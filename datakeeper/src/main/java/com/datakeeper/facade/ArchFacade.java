@@ -20,4 +20,6 @@ public interface ArchFacade extends GenericFacade<Arch, ArchDTO, Integer> {
 	List<ArchDTO> findByIdEsta(Integer idEsta) throws Exception;
 
 	Integer counRecords() throws Exception;
+
+	boolean checkIfExistName(String nomb) throws Exception;
 }

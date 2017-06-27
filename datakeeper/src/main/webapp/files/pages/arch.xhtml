@@ -17,11 +17,11 @@
 						icon="ui-icon-folder-collapsed" onclick="PF('dlgCarga').show();"
 						update=":formCarga:panelGrid_Carga" />
 
-					<!-- 					<p:commandButton value="#{msg.lbl_ver}" icon="ui-icon-search" -->
-					<!-- 						onclick="validateSelection(PF('arch'),'dlgVer');" -->
-					<!-- 						action="#{archController.onValidateSelectedRow}" -->
-					<!-- 						actionListener="#{archController.onViewArch}" -->
-					<!-- 						update=":formVer:panelGrid_Ver" /> -->
+					<p:commandButton value="#{msg.lbl_ver}" icon="ui-icon-search"
+						onclick="validateSelection(PF('tblArch'),'dlgVer');"
+						action="#{archController.onValidateSelectedRow}"
+						actionListener="#{archController.onViewArch}"
+						update=":formVer:panelGrid_Ver" />
 
 					<p:dataTable id="tblArch" widgetVar="tblArch"
 						value="#{archController.itemsList}" var="item"
@@ -74,18 +74,79 @@
 									update="@this current_item_view_nom_ext" fileLimit="5"
 									fileLimitMessage="#{msg.lbl_maxi_arch}" />
 								<h:outputText />
-								<p:outputLabel value="#{msg.lbl_exte_regi}"
+								<p:outputLabel value="#{msg.lbl_mens}"
 									for="current_item_view_nom_ext" />
 								<p:inputTextarea id="current_item_view_nom_ext"
-									value="#{archController.view_extension_fail}" rows="4"
-									cols="35" autoResize="true" style="font-weight:bold;color:red"
+									value="#{archController.view_mensajes}" rows="4" cols="35"
+									autoResize="true" style="font-weight:bold;color:red"
 									readonly="true" />
 								<p:separator />
 								<p:commandButton value="#{msg.lbl_acep}" icon="ui-icon-check"
-									action="#{archController.onSaveLoad}"
+									action="#{archController.onSave}"
 									update=":formArch:tblArch :formCarga:panelGrid_Carga"
 									onclick="PF('dlgCarga').hide();" immediate="true" />
 							</h:panelGrid>
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:form>
+			</p:dialog>
+
+			<p:dialog header="Ver" widgetVar="dlgVer" style="position:fixed;"
+				resizable="false" showEffect="clip" hideEffect="clip" modal="true"
+				closable="false" appendTo="@(body)">
+				<h:form id="formVer">
+					<p:outputPanel id="outputPanel_View">
+						<h:panelGrid id="panelGrid_Ver" columns="2">
+							<h:panelGrid columns="1">
+								<p:graphicImage value="#{archController.view_file}"
+									cache="false" width="200" height="150" />
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:outputLabel value="#{msg.lbl_nombre}"
+									for="current_item_view_nomArch" />
+								<h:outputText id="current_item_view_nomArch"
+									value="#{archController.currentItem.nomb}"
+									style="font-weight:bold" />
+								<p:outputLabel value="#{msg.lbl_desc}"
+									for="current_item_view_desc" />
+								<p:inputTextarea id="current_item_view_desc"
+									value="#{archController.currentItem.descArch}" rows="2"
+									cols="35" autoResize="false" style="font-weight:bold"
+									readonly="true" />
+								<p:outputLabel value="#{msg.lbl_tipo}"
+									for="current_item_view_tipoArch" />
+								<h:outputText id="current_item_view_tipoArch"
+									value="#{archController.currentItem.idTipoValo}"
+									style="font-weight:bold" />
+								<p:outputLabel value="#{msg.lbl_tama}"
+									for="current_item_view_tama" />
+								<h:outputText id="current_item_view_tama"
+									value="#{archController.currentItem.tama}"
+									style="font-weight:bold" />
+								<p:outputLabel value="#{msg.lbl_desc}"
+									for="current_item_view_descArch" />
+								<p:inputTextarea id="current_item_view_descArch"
+									value="#{archController.currentItem.descArch}" rows="2"
+									cols="35" autoResize="true" style="font-weight:bold"
+									readonly="true" />
+								<p:outputLabel value="#{msg.lbl_vers}"
+									for="current_item_view_vers" />
+								<h:outputText id="current_item_view_vers"
+									value="#{archController.currentItem.vers}"
+									style="font-weight:bold" />
+								<p:outputLabel value="#{msg.lbl_fcha_alta}"
+									for="current_item_view_fchAlta" />
+								<h:outputText id="current_item_view_fchAlta"
+									value="#{archController.currentItem.fchCrea}"
+									style="font-weight:bold">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid columns="1">
+							<p:commandButton value="#{msg.lbl_acep}" icon="ui-icon-check"
+								action="#{archController.onViewAcept}"
+								onclick="PF('dlgVer').hide();" immediate="true" />
 						</h:panelGrid>
 					</p:outputPanel>
 				</h:form>

@@ -22,4 +22,6 @@ public interface ArchService extends GenericService<Arch, ArchDTO, Integer> {
 	List<ArchDTO> findAllByEsta(Integer idEsta) throws ServiceException;
 
 	Integer counRecords() throws ServiceException;
+
+	boolean checkIfExistName(String nomb) throws ServiceException;
 }

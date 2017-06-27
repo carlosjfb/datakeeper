@@ -7,12 +7,14 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -26,9 +28,6 @@ import com.datakeeper.facade.ArchFacade;
 import com.datakeeper.facade.CataFacade;
 import com.datakeeper.utils.MsgConstant;
 import com.datakeeper.utils.VarConstant;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * CONTROLLER DE ARCH
@@ -56,12 +55,15 @@ public class ArchController extends GenericController implements Serializable {
 	private CataFacade facadeCata;
 
 	private List<ArchDTO> itemsList;
-	private HashSet<String> listExtencions;
 
 	private ArchDTO currentItem;
 
-	private String view_extension_fail;
+	private String view_mensajes;
 	private StreamedContent view_file;
+
+	private String input_edit_nomb;
+	private String input_edit_descArch;
+	private String input_edit_vers;
 
 	@Autowired
 	@PostConstruct
@@ -72,13 +74,12 @@ public class ArchController extends GenericController implements Serializable {
 	}
 
 	private void initVar() {
-		view_extension_fail = null;
+		view_mensajes = "";
 	}
 
 	private void initList() {
 		itemsList = null;
 		initItemsList();
-		listExtencions = new HashSet<String>();
 	}
 
 	private void initObj() {
@@ -103,35 +104,48 @@ public class ArchController extends GenericController implements Serializable {
 
 	public void onLoadFiles(FileUploadEvent e) {
 		if (e.getFile() != null) {
+			boolean saveMsg = false;
+			int oSave = 0;
+			String tipo = null;
 			String nombre = e.getFile().getFileName();
-			NumberFormat nf = new DecimalFormat("#0.0");
-			Double fileB = (double) e.getFile().getSize();
-			Double fileKB = fileB / 1024;
-			Double fileMB = fileKB / 1024;
-			Double fileGB = fileMB / 1024;
-			String tipo = nombre.substring(nombre.lastIndexOf(".") + 1);
-			CataDTO cata = findByTipoArch(tipo.toLowerCase());
-			if (cata != null) {
-				ArchDTO arch = new ArchDTO();
-				nombre = nombre.substring(0, nombre.lastIndexOf("."));
-				arch.setNomb(nombre);
-				arch.setTama((fileGB > 1 ? nf.format(fileGB) + " GB"
-						: fileMB > 1 ? nf.format(fileMB) + " MB"
-								: fileKB > 1 ? nf.format(fileKB) + " KB" : nf
-										.format(fileB) + " Bytes"));
-				arch.setIdTipo(cata.getIdCata());
-				arch.setArchByte(e.getFile().getContents());
-				saveArch(arch);
-			} else {
-				listExtencions.add(e.getFile().getFileName());
-				view_extension_fail = null;
-				for (String val : listExtencions) {
-					if (view_extension_fail == null) {
-						view_extension_fail = val;
-						continue;
-					}
-					view_extension_fail += "\n" + val;
+			tipo = nombre.substring(nombre.lastIndexOf(".") + 1);
+			nombre = nombre.substring(0, nombre.lastIndexOf("."));
+			if (!checkIfExistName(nombre)) {
+				NumberFormat nf = new DecimalFormat("#0.0");
+				Double fileB = (double) e.getFile().getSize();
+				Double fileKB = fileB / 1024;
+				Double fileMB = fileKB / 1024;
+				Double fileGB = fileMB / 1024;
+				CataDTO cata = findByTipoArch(tipo.toLowerCase());
+				if (cata != null) {
+					ArchDTO arch = new ArchDTO();
+					arch.setNomb(nombre);
+					arch.setTama((fileGB > 1 ? nf.format(fileGB) + " GB"
+							: fileMB > 1 ? nf.format(fileMB) + " MB"
+									: fileKB > 1 ? nf.format(fileKB) + " KB"
+											: nf.format(fileB) + " Bytes"));
+					arch.setIdTipo(cata.getIdCata());
+					arch.setArchByte(e.getFile().getContents());
+					saveArch(arch);
+				} else {
+					saveMsg = true;
+					oSave = 1;
 				}
+			} else {
+				saveMsg = true;
+				oSave = 2;
+			}
+			if (saveMsg) {
+				switch (oSave) {
+				case 1:
+					view_mensajes += "\nExtencion: '" + tipo
+							+ "' no registrada!";
+					break;
+				case 2:
+					view_mensajes += "\nNombre: '" + nombre + "' registrado!";
+					break;
+				}
+
 			}
 		}
 	}
@@ -150,6 +164,18 @@ public class ArchController extends GenericController implements Serializable {
 		return dto;
 	}
 
+	private boolean checkIfExistName(String nomb) {
+		boolean exist = false;
+		try {
+			exist = facade.checkIfExistName(nomb);
+		} catch (Exception e) {
+			System.out.println("Error en ArchController - checkIfExistName: "
+					+ e);
+			e.printStackTrace();
+		}
+		return exist;
+	}
+
 	private void saveArch(ArchDTO arch) {
 		try {
 			arch.setIdEsta(VarConstant.CATA_ID_CATA_ACTIVO);
@@ -162,7 +188,11 @@ public class ArchController extends GenericController implements Serializable {
 		}
 	}
 
-	public void onSaveLoad() {
+	public void onSave() {
+		refreshAll();
+	}
+
+	public void onViewAcept() {
 		refreshAll();
 	}
 

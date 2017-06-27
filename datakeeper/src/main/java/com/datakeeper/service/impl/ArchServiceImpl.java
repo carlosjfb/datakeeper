@@ -59,6 +59,17 @@ public class ArchServiceImpl extends GenericServiceImpl<Arch, ArchDTO, Integer>
 		}
 	}
 
+	@Override
+	public boolean checkIfExistName(String nomb) throws ServiceException {
+		try {
+			return dao.checkIfExistName(nomb);
+		} catch (PersistenceException ex) {
+			System.out.println("Error en ArchServiceImpl - checkIfExistName: "
+					+ ex);
+			return false;
+		}
+	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	GenericDAO getDAO() {

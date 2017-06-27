@@ -52,6 +52,17 @@ public class ArchFacadeImpl extends GenericFacadeImpl<Arch, ArchDTO, Integer>
 		}
 	}
 
+	@Override
+	public boolean checkIfExistName(String nomb) throws Exception {
+		try {
+			return service.checkIfExistName(nomb);
+		} catch (Exception e) {
+			System.out.println("Error en ArchFacadeImpl - checkIfExistName: "
+					+ e);
+			return false;
+		}
+	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	GenericService getService() {

@@ -21,4 +21,6 @@ public interface ArchDAO extends GenericDAO<Arch, Integer> {
 	List<Arch> findAllByEsta(Integer idEsta) throws PersistenceException;
 
 	Integer counRecords() throws PersistenceException;
+
+	boolean checkIfExistName(String nomb) throws PersistenceException;
 }
